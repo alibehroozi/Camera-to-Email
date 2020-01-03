@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Controllers from "components/Camera/Controllers";
 import View from "components/Camera/View";
+import Typography from "components/shared/Typography";
 
 export const CameraWrapper = styled.div`
   width: 100%;
@@ -21,3 +22,5 @@ export const StyledControllers = styled(Controllers)`
   flex-grow: 0;
   flex-shrink: 0;
 `;
+
+export const NoSupportText = styled(Typography)``;

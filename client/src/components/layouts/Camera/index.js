@@ -1,14 +1,37 @@
 import React from "react";
 
-import { CameraWrapper, StyledView, StyledControllers } from "./index.style";
+import {
+  CameraWrapper,
+  StyledView,
+  StyledControllers,
+  NoSupportText
+} from "./index.style";
 
-type Props = {};
+type Props = {
+  videoStream: MediaStream,
+  supportCamera?: boolean
+};
 
-const CameraLayout = () => {
+const CameraLayout = ({ videoStream, supportCamera }) => {
   return (
     <CameraWrapper>
-      <StyledView />
-      <StyledControllers />
+      {supportCamera ? (
+        <>
+          <StyledView videoStream={videoStream} />
+          <StyledControllers />
+        </>
+      ) : (
+        <NoSupportText
+          color="#000"
+          font={{
+            fontSize: 22,
+            fontWeight: 500,
+            fontFamily: "Gudea"
+          }}
+        >
+          Camera is not supported. Please use another browser
+        </NoSupportText>
+      )}
     </CameraWrapper>
   );
 };
