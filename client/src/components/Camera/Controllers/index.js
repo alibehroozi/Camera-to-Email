@@ -1,3 +1,4 @@
+//@flow
 import React from "react";
 import {
   ControllersWrapper,
@@ -6,9 +7,12 @@ import {
   DoneButton
 } from "./index.style";
 
-type Props = {};
+type Props = {
+  className: string,
+  captureDocument: () => Promise<void>
+};
 
-const CameraControllers = ({ className }) => {
+const CameraControllers = ({ className, captureDocument }: Props) => {
   return (
     <ControllersWrapper className={className}>
       <CancelButton
@@ -21,7 +25,7 @@ const CameraControllers = ({ className }) => {
       >
         Abbruch
       </CancelButton>
-      <CaptureButton />
+      <CaptureButton onClick={captureDocument} />
       <DoneButton
         color="#00848B"
         font={{

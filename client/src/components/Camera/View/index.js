@@ -1,22 +1,23 @@
-import React, { useRef, useEffect } from "react";
+//@flow
+import * as React from "react";
+import { useEffect } from "react";
 import { CameraVideo, ViewWrapper } from "./index.style";
 
 type Props = {
+  videoRef: React.ElementRef<any>,
   videoStream: MediaStream,
   className: string
 };
 
-const CameraView = ({ videoStream, className }) => {
-  const videoRef = useRef();
-  const videoStreamId = videoStream.id;
+const CameraView = ({ videoRef, videoStream, className }: Props) => {
   useEffect(() => {
     if (videoRef.current && videoStream.id) {
       videoRef.current.srcObject = videoStream;
     }
-  }, [videoStreamId]);
+  }, [videoStream, videoRef]);
   return (
     <ViewWrapper className={className}>
-      <CameraVideo ref={videoRef} autoPlay />
+      <CameraVideo ref={videoRef} autoPlay muted />
     </ViewWrapper>
   );
 };

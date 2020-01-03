@@ -1,5 +1,5 @@
-import React from "react";
-
+//@flow
+import * as React from "react";
 import {
   CameraWrapper,
   StyledView,
@@ -9,16 +9,23 @@ import {
 
 type Props = {
   videoStream: MediaStream,
-  supportCamera?: boolean
+  supportCamera?: boolean,
+  captureDocument: () => Promise<void>,
+  videoRef: React.ElementRef<any>
 };
 
-const CameraLayout = ({ videoStream, supportCamera }) => {
+const CameraLayout = ({
+  videoStream,
+  supportCamera,
+  captureDocument,
+  videoRef
+}: Props) => {
   return (
     <CameraWrapper>
       {supportCamera ? (
         <>
-          <StyledView videoStream={videoStream} />
-          <StyledControllers />
+          <StyledView videoStream={videoStream} videoRef={videoRef} />
+          <StyledControllers captureDocument={captureDocument} />
         </>
       ) : (
         <NoSupportText

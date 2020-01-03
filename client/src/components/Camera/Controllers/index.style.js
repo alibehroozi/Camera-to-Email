@@ -1,3 +1,4 @@
+//@flow
 import styled from "styled-components";
 import Typography from "components/shared/Typography";
 
