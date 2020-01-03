@@ -1,22 +1,17 @@
 //@flow
 import React from "react";
+import { Router } from "react-router-dom";
 import AppGlobalStyles from "./globalStyles";
-import Typography from "components/shared/Typography";
+import Routes from "routes";
+import history from "helpers/history";
 
 const App = () => {
   return (
     <>
       <AppGlobalStyles />
-      <Typography
-        color="red"
-        font={{
-          fontSize: 20,
-          fontWeight: 500,
-          fontFamily: "Gudea"
-        }}
-      >
-        let's get started
-      </Typography>
+      <Router history={history}>
+        <Routes />
+      </Router>
     </>
   );
 };

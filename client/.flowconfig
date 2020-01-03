@@ -13,6 +13,9 @@ module.name_mapper='^components\(.*\)$' -> '<PROJECT_ROOT>/src/components\1'
 module.name_mapper='^containers\(.*\)$' -> '<PROJECT_ROOT>/src/containers\1'
 module.name_mapper='^assets\(.*\)$' -> '<PROJECT_ROOT>/src/assets\1'
 module.name_mapper='^serviceWorker\(.*\)$' -> '<PROJECT_ROOT>/src/serviceWorker\1'
+module.name_mapper='^pages\(.*\)$' -> '<PROJECT_ROOT>/src/pages\1'
+module.name_mapper='^routes\(.*\)$' -> '<PROJECT_ROOT>/src/routes\1'
+module.name_mapper='^helpers\(.*\)$' -> '<PROJECT_ROOT>/src/helpers\1'
 
 [include]
 ./src/**
