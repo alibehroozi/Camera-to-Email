@@ -1,9 +1,16 @@
 import React from "react";
 
+import { CameraWrapper, StyledView, StyledControllers } from "./index.style";
+
 type Props = {};
 
 const CameraLayout = () => {
-  return <div>camera will be here</div>;
+  return (
+    <CameraWrapper>
+      <StyledView />
+      <StyledControllers />
+    </CameraWrapper>
+  );
 };
 
 export default CameraLayout;

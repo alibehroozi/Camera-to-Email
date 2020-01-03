@@ -5,12 +5,13 @@ import { TypoWrapper } from "./index.style";
 type Props = {
   font: { fontSize: number, fontFamily: string, fontWeight: number },
   color: string,
-  children: React.Node
+  children: React.Node,
+  className?: string
 };
 
-const Typography = ({ font, color, children }: Props) => {
+const Typography = ({ font, color, children, className }: Props) => {
   return (
-    <TypoWrapper textFont={font} textColor={color}>
+    <TypoWrapper className={className} textFont={font} textColor={color}>
       {children}
     </TypoWrapper>
   );
