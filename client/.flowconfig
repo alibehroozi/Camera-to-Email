@@ -1,0 +1,18 @@
+[ignore]
+.*/flow-typed/npm/*
+./src/**/*.json
+.*/node_modules/**/*.json
+
+[libs]
+flow-typed
+styled-components
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
+module.name_mapper='^components\(.*\)$' -> '<PROJECT_ROOT>/src/components\1'
+module.name_mapper='^containers\(.*\)$' -> '<PROJECT_ROOT>/src/containers\1'
+module.name_mapper='^assets\(.*\)$' -> '<PROJECT_ROOT>/src/assets\1'
+module.name_mapper='^serviceWorker\(.*\)$' -> '<PROJECT_ROOT>/src/serviceWorker\1'
+
+[include]
+./src/**

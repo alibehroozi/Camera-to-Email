@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "Gudea";
+  font-weight: 400;
+  src: url("../font/Gudea-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Gudea";
+  font-weight: 500;
+  src: url("../font/Gudea-Bold.ttf");
+}
