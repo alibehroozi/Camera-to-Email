@@ -9,6 +9,10 @@ about which frameworks you use is up to you. The choice will only
 matter for the evaluation insofar as e. g. adding buggy external
 dependencies will also affect the stability of your code.
 
+## Install and Start
+
+`npm install && npm start`
+
 ## The fronted
 
 A layout idea for the frontend can be found [here](https://marvelapp.com/project/3366817/).
