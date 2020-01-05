@@ -10,22 +10,40 @@ import {
 type Props = {
   videoStream: MediaStream,
   supportCamera?: boolean,
-  captureDocument: () => Promise<void>,
-  videoRef: React.ElementRef<any>
+  imageCaptured: () => Promise<void>,
+  videoRef: React.ElementRef<any>,
+  canvasRef: React.ElementRef<any>,
+  isCaptured?: boolean,
+  imageDone: () => Promise<void>,
+  imageCanceled: () => void
 };
 
 const CameraLayout = ({
   videoStream,
   supportCamera,
-  captureDocument,
-  videoRef
+  imageCaptured,
+  videoRef,
+  canvasRef,
+  isCaptured,
+  imageDone,
+  imageCanceled
 }: Props) => {
   return (
     <CameraWrapper>
       {supportCamera ? (
         <>
-          <StyledView videoStream={videoStream} videoRef={videoRef} />
-          <StyledControllers captureDocument={captureDocument} />
+          <StyledView
+            videoStream={videoStream}
+            videoRef={videoRef}
+            canvasRef={canvasRef}
+            isCaptured={isCaptured}
+          />
+          <StyledControllers
+            onDone={imageDone}
+            onCancel={imageCanceled}
+            imageCaptured={imageCaptured}
+            isCaptured={isCaptured}
+          />
         </>
       ) : (
         <NoSupportText

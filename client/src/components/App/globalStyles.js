@@ -6,6 +6,7 @@ const AppGlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     overflow: hidden;
+    height: 100vh;
   }
   *, *:before, *:after {
     box-sizing: border-box;

@@ -1,5 +1,6 @@
 //@flow
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import * as React from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import CameraLayout from "components/layouts/Camera";
 import {
   initCanvas,
@@ -10,14 +11,15 @@ import {
 
 const CameraPage = () => {
   const [supportCamera: boolean, setSupportCamera] = useState(true);
-  const [capturing: boolean, setCapturing] = useState(false);
+  const [isCaptured: boolean, setCaptured] = useState(false);
   const [videoStream, setVideoStream] = useState(new MediaStream());
   const videoRef = useRef();
+  const canvasRef: React.ElementRef<any> = useRef();
 
-  const captureDocument = useCallback(async () => {
+  // capture the image on canvas
+  const handleImageCapture = useCallback(async () => {
     if (videoRef.current) {
-      setCapturing(true);
-      const canvas = initCanvas(videoRef.current);
+      const canvas = initCanvas(canvasRef.current, videoRef.current);
       const videoTracks = videoStream.getVideoTracks();
       if (videoTracks.length) {
         try {
@@ -26,30 +28,50 @@ const CameraPage = () => {
             width: trackSize.width || canvas.width,
             height: trackSize.height || canvas.height
           };
+
           captureFrameToCanvas(canvas, videoRef.current, imageSize);
-          const blob = await getCanvasImageBlob(canvas);
-          console.log(blob);
-          postImageToServer(blob)
-            .then(({ status, data }) => {
-              setCapturing(false);
-            })
-            .catch(() => {
-              /* handle sending error */
-            });
+          setCaptured(true);
         } catch (error) {
           /* handle unexpected error in generating canvas */
+          alert("Error!");
         }
       } else {
         /* handle no track */
+        alert("Error!");
       }
     }
   }, [videoStream]);
+
+  // send image from canvas to server
+  const handleDoneImage = async () => {
+    if (canvasRef.current) {
+      setCaptured(false);
+      const blob = await getCanvasImageBlob(canvasRef.current);
+      postImageToServer(canvasRef.current.width, canvasRef.current.height, blob)
+        .then(({ status, data }) => {
+          if (data.ok) {
+            // show user that successfully image sended
+            return alert("Sent");
+          }
+          alert("Error!");
+        })
+        .catch(() => {
+          alert("Error!");
+          /* handle sending error */
+        });
+    }
+  };
+
+  // set captured to false so user can continue filming
+  const handleCancelImage = () => {
+    setCaptured(false);
+  };
 
   useEffect(() => {
     // check if browser supports media devices stream
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        .getUserMedia({ video: { facingMode: { ideal: "environment" } } })
         .then((stream: MediaStream) => {
           setVideoStream(stream);
         })
@@ -65,8 +87,11 @@ const CameraPage = () => {
       supportCamera={supportCamera}
       videoStream={videoStream}
       videoRef={videoRef}
-      capturing={capturing}
-      captureDocument={captureDocument}
+      canvasRef={canvasRef}
+      isCaptured={isCaptured}
+      imageDone={handleDoneImage}
+      imageCanceled={handleCancelImage}
+      imageCaptured={handleImageCapture}
     />
   );
 };

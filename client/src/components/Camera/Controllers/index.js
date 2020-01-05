@@ -9,33 +9,48 @@ import {
 
 type Props = {
   className: string,
-  captureDocument: () => Promise<void>
+  isCaptured?: boolean,
+  imageCaptured: () => Promise<void>,
+  onDone: () => Promise<void>,
+  onCancel: () => void
 };
 
-const CameraControllers = ({ className, captureDocument }: Props) => {
+const CameraControllers = ({
+  className,
+  imageCaptured,
+  isCaptured,
+  onDone,
+  onCancel
+}: Props) => {
   return (
     <ControllersWrapper className={className}>
-      <CancelButton
-        color="#4A4A4A"
-        font={{
-          fontSize: 20,
-          fontWeight: 500,
-          fontFamily: "Gudea"
-        }}
-      >
-        Abbruch
-      </CancelButton>
-      <CaptureButton onClick={captureDocument} />
-      <DoneButton
-        color="#00848B"
-        font={{
-          fontSize: 22,
-          fontWeight: 500,
-          fontFamily: "Gudea"
-        }}
-      >
-        Fertig
-      </DoneButton>
+      {isCaptured && (
+        <CancelButton
+          onClick={onCancel}
+          color="#4A4A4A"
+          font={{
+            fontSize: 20,
+            fontWeight: 500,
+            fontFamily: "Gudea"
+          }}
+        >
+          Abbruch
+        </CancelButton>
+      )}
+      <CaptureButton onClick={imageCaptured} isHidden={isCaptured} />
+      {isCaptured && (
+        <DoneButton
+          onClick={onDone}
+          color="#00848B"
+          font={{
+            fontSize: 22,
+            fontWeight: 500,
+            fontFamily: "Gudea"
+          }}
+        >
+          Fertig
+        </DoneButton>
+      )}
     </ControllersWrapper>
   );
 };

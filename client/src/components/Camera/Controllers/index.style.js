@@ -1,22 +1,25 @@
 //@flow
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Typography from "components/shared/Typography";
 
 export const ControllersWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background-color: #fff;
 `;
 
 export const CancelButton = styled(Typography)`
   flex-shrink: 0;
   flex-grow: 0;
   min-width: 75px;
+  cursor: pointer;
   text-align: center;
 `;
 
 export const DoneButton = styled(Typography)`
   flex-shrink: 0;
+  cursor: pointer;
   text-align: center;
   min-width: 75px;
   flex-grow: 0;
@@ -31,6 +34,14 @@ export const CaptureButton = styled.div`
   position: relative;
   flex-shrink: 0;
   flex-grow: 0;
+  ${({ isHidden }) =>
+    isHidden &&
+    css`
+      display: none;
+    `}
+  :active {
+    background: #fff;
+  }
   ::after {
     position: absolute;
     content: "";

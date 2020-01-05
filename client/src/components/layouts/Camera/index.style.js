@@ -7,21 +7,20 @@ import Typography from "components/shared/Typography";
 export const CameraWrapper = styled.div`
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 `;
 
 export const StyledView = styled(View)`
-  flex-grow: 1;
-  flex-shrink: 1;
+  position: absolute;
+  top: 0;
+  height: calc(100vh - 80px) !important;
 `;
 
 export const StyledControllers = styled(Controllers)`
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  flex-basis: 100px;
-  flex-grow: 0;
-  flex-shrink: 0;
+  height: 80px;
 `;
 
 export const NoSupportText = styled(Typography)``;

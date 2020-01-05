@@ -9,9 +9,14 @@ type Props = {
   className?: string
 };
 
-const Typography = ({ font, color, children, className }: Props) => {
+const Typography = ({ font, color, children, className, ...rest }: Props) => {
   return (
-    <TypoWrapper className={className} textFont={font} textColor={color}>
+    <TypoWrapper
+      className={className}
+      textFont={font}
+      textColor={color}
+      {...(rest: any)}
+    >
       {children}
     </TypoWrapper>
   );

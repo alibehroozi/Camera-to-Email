@@ -1,20 +1,27 @@
+/*
+  It creates a pdf from image and write pdf to given stream
+*/
 const createPdfFromImage = (
   PDFDocument,
-  { imagePath, width, height },
+  { path, width, height },
   writeStream
 ) => {
   const pdfDocument = new PDFDocument();
   pdfDocument.pipe(writeStream);
-  pdfDocument.image(imagePath, {
+  pdfDocument.image(path, {
     fit: [width, height],
     align: "center",
     valign: "center"
   });
-  doc.end();
+  pdfDocument.end();
 };
 
+/*
+  It sends an email with given message using a transporter
+*/
 const sendEmailWithAttachment = (transporter, message) => {
   return new Promise((resolve, reject) => {
+    console.log(message);
     transporter.sendMail(message, err => {
       if (!err) {
         return resolve();
@@ -24,10 +31,15 @@ const sendEmailWithAttachment = (transporter, message) => {
   });
 };
 
+/*
+  It generates a node mailer transporter
+*/
 const createDirectTransporter = nodemailer => {
-  transport = nodemailer.createTransport("direct", {
-    debug: true
+  transport = nodemailer.createTransport({
+    logger: true,
+    sendmail: true
   });
+  return transport;
 };
 
 module.exports = {

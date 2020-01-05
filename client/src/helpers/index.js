@@ -33,30 +33,36 @@ export const getCanvasImageBlob = (canvas: HTMLCanvasElement) => {
   });
 };
 
-export const postImageToServer = (blob: Blob) => {
-  return axios({
-    method: "post",
-    url: "http://localhost:8000/send/pdf",
-    data: {
-      image: blob
-    }
-  }).then(response => {
-    return {
-      status: response.status,
-      data: response.data
-    };
-  });
+export const postImageToServer = (
+  width: number,
+  height: number,
+  blob: Blob
+) => {
+  const formData: FormData = new FormData();
+  formData.append("width", width.toString());
+  formData.append("height", height.toString());
+  formData.append("capturedImage", blob);
+  return axios
+    .post("http://localhost:3003/send/pdf", formData, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    .then(response => {
+      return {
+        status: response.status,
+        data: response.data
+      };
+    });
 };
 
 export const initCanvas = (
+  canvas: HTMLCanvasElement,
   videoElement: HTMLVideoElement
 ): HTMLCanvasElement => {
-  const canvas = document.createElement("canvas");
-  const {
-    width: videoWidth,
-    height: videoHeight
-  } = videoElement.getBoundingClientRect();
-  canvas.width = videoWidth;
-  canvas.height = videoHeight;
+  const { width, height } = videoElement.getBoundingClientRect();
+  canvas.width = width;
+  canvas.height = height;
   return canvas;
 };
